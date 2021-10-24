@@ -1,0 +1,94 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #1F3BB3;
+  color: white;
+  font-weight: 600;
+  z-index: 6px;
+}
+
+.view{
+  padding:40px 0px 40px 0px;
+  height:100%;
+  width: 100%;
+
+}
+
+.toolbar img {
+  margin: 0 16px;
+  cursor: pointer;
+}
+
+
+::ng-deep .success {
+  color: #1f6a66;
+  background-color: #d6efee;
+  border-color: #c2e8e6;
+  /* background-color: #3c763d;
+  color: white; */
+  font-size : 20px !important;
+}
+::ng-deep .failure{
+  color: #953932;
+  background-color: #fedfdd;
+  border-color: #fdcfcb;
+  /* background-color: #F95F53;
+  color: white; */
+  font-size : 20px !important;
+}
+
+
+*:focus {
+  outline: none !important;
+  border: 0 !important;
+}
+
+.mat-drawer-backdrop{
+  margin-top:65px  !important
+}
+
+.sidenav-container {
+  height: 90%;
+  display: contents !important;
+
+}
+
+.sidenav {
+  width: 250px;
+  scrollbar-width: thin;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+ top:150px  !important;
+}
+.mat-menu-panel {
+  margin-top: 100px;
+}

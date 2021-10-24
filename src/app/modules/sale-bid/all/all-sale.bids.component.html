@@ -1,0 +1,101 @@
+<div style="margin-top: 20px;height: 15px;">
+  <span style="margin-left:50px;color:#1730ff;font-size: 20px;font-weight: bold">Sale Bids View</span>
+  <span style="float:right; height: 45px;">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)" [readonly]="dataSource.data.length == 0"
+             placeholder="Search" #input/>
+    </mat-form-field>
+  </span>
+</div>
+
+<div class="example-container mat-elevation-z8">
+  <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" matSort flex [matSortActive]="sortProperty">
+      <ng-container matColumnDef="propertyId" sticky>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header><span
+          style="margin-left: 24px;">PropertyId</span></th>
+        <td mat-cell *matCellDef="let element"
+            [innerHTML]="element.property.propertyId | highlightSearch: filterText"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="propertyName">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Property Name</th>
+        <td mat-cell *matCellDef="let element"
+            [innerHTML]="element.property.name | highlightSearch: filterText"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="ownerName">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Owner Name</th>
+        <td mat-cell *matCellDef="let element"
+            [innerHTML]="element.property.ownerName | highlightSearch: filterText"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="units">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Units</th>
+        <td mat-cell *matCellDef="let element"> {{element.property.units}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Category</th>
+        <td mat-cell *matCellDef="let element"> {{element.property.category}}</td>
+      </ng-container>
+      <ng-container matColumnDef="propertyType">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Property Type</th>
+        <td mat-cell *matCellDef="let element"> {{element.property.propertyType}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="saleUnits">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Sale Units</th>
+        <td mat-cell *matCellDef="let element"> {{element.propertySale.saleUnits}}</td>
+      </ng-container>
+      <ng-container matColumnDef="funded">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Funded</th>
+        <td mat-cell *matCellDef="let element"> {{element.propertySale.funded}}</td>
+      </ng-container>
+      <ng-container matColumnDef="qtyPrice">
+        <th scope="col" mat-header-cell *matHeaderCellDef> Price Quantity</th>
+        <td mat-cell *matCellDef="let element"> {{element.propertySale.qtyPrice}}</td>
+      </ng-container>
+      <ng-container matColumnDef="requiredUnits">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Required Units</th>
+        <td mat-cell *matCellDef="let element"  [innerHTML]="element.requiredUnits | highlightSearch: filterText"></td>
+      </ng-container>
+      <ng-container matColumnDef="priceQuotation">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Quotation Price</th>
+        <td mat-cell *matCellDef="let element" [innerHTML]="element.priceQuotation | highlightSearch: filterText"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions" stickyEnd>
+        <th scope="col" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button title="Edit">
+            <mat-icon color="primary" (click)="edit(element)" style="background-color: lightseagreen">edit</mat-icon>
+          </button>
+          <button mat-icon-button title="Delete">
+            <mat-icon color="warn" (click)="delete(element)" style="background-color: wheat">delete</mat-icon>
+          </button>
+          <button mat-icon-button color="success" title="Approve" (click)="approve(element)"
+                  *ngIf="loginId == element.propertySale.createdBy && element.status == 'NEW'" style="background-color: lightgreen">
+            <mat-icon>checkmark</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="dataSource.data.length != 0 && input.value != '' ">
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="26">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <h5 *ngIf="dataSource.data.length == 0">No Sale Bids </h5>
+
+  </div>
+  <mat-paginator [pageSizeOptions]="[20, 30, 50, 100]"></mat-paginator>
+</div>

@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;
+   /* background-color: #f9fbfe; */
+   }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+
+
+body {
+  font-family: "Ubuntu" !important;
+  margin: 0px;
+
+  /* background-color: #f9fbfe im !important; */
+}
+
+/* .version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+} */
+*:focus {
+  outline: none !important;
+  border: 0 !important;
+}
+
+
+
+/**  Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */

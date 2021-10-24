@@ -1,0 +1,317 @@
+<mat-toolbar color="">
+  <button mat-raised-button color="primary" [disabled]="opened" (click)="sideNav.open();create()"
+          title="New {{type | titlecase}}">New {{type | titlecase}}
+  </button>
+  <mat-button-toggle-group [(ngModel)]="type" [disabled]="opened">
+    <mat-button-toggle value="user">Users</mat-button-toggle>
+    <!--<mat-button-toggle value="role">Roles</mat-button-toggle>-->
+  </mat-button-toggle-group>
+</mat-toolbar>
+<!--<div class="content">
+   <div fxLayout="row wrap" fxLayoutGap="16px grid"  *ngIf="type == 'user'">
+    <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let user of users">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</mat-card-title>
+          <mat-card-subtitle *ngFor="let role of user.roles">{{role.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="user-details">
+            <div>
+                <i class="las la-user"></i>
+                <span >{{user.firstName | titlecase}} {{user.lastName | titlecase}}</span>
+            </div>
+            <div>
+                <i class="las la-envelope"></i>
+                <span >{{user.email}}</span>
+            </div>
+            <div>
+                <i class="las la-phone"></i>
+                <span >{{user.phoneNumber}}</span>
+            </div>
+        </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="show(user)">LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+
+  </div>
+
+  <div *ngIf="type == 'role'">
+    <mat-grid-list cols="3" rowHeight="2:1">
+      <mat-grid-tile>1</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>4</mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+
+
+</div>
+-->
+
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #sideNav mode="over" [(opened)]="opened" position="end">
+
+    <div class="sidepanelHeader">
+      <h4 *ngIf="type == 'user' && editUserInfo == null"> New {{type | titlecase}} </h4>
+      <h4 *ngIf="type == 'user' && editUserInfo != null"> Edit {{type | titlecase}} </h4>
+      <h4 *ngIf="type == 'role' && editRoleInfo == null"> New {{type | titlecase}} </h4>
+      <h4 *ngIf="type == 'role' && editRoleInfo != null"> Edit {{type | titlecase}} </h4>
+      <span style="flex: 1 1 auto;"></span>
+      <mat-icon (click)="sideNav.close()" id="close" title="close">close</mat-icon>
+    </div>
+
+    <div class="sidepanelBody">
+
+      <!-- -------------------NewUser------------------------------ -->
+      <div *ngIf="type == 'user' && editUserInfo == null">
+
+        <form class="example-form" [formGroup]="userForm" autocomplete="off">
+
+          <div style="height:35vh">
+
+            <div style="width:50%;margin-top: 15px;">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>First name</mat-label>
+                <input matInput type="text" formControlName="firstName" required>
+              </mat-form-field>
+            </div>
+
+            <div class="imageCard" style="height:50px;width:50%;margin-left:300px;margin-top:-80px">
+
+              <img *ngIf="imageSrc != null" src="{{'data:image/jpeg;base64,' + imageSrc}}" (click)="fileInput.click()"
+                   width="200px;" height="200px" required>
+              <img *ngIf="imageSrc == null" src="../assets/addImage.png" (click)="fileInput.click()" width="200px;"
+                   height="200px" required>
+
+              <input type="file" style="display: none" accept="image/*" (change)="onFileSelected($event)" #fileInput>
+            </div>
+            <br>
+
+            <div style="width:50%;margin-top: 35px;">
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>LastName</mat-label>
+                <input matInput type="text" formControlName="lastName">
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <table class="example-full-width" cellspacing="0">
+
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>UserName</mat-label>
+                  <input matInput type="text" formControlName="username" required>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="text" formControlName="password" required>
+                </mat-form-field>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email" required>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>PhoneNumber</mat-label>
+                  <input matInput type="text" formControlName="phoneNumber" required>
+                </mat-form-field>
+              </td>
+
+            </tr>
+
+          </table>
+        </form>
+
+
+      </div>
+
+      <!-- -------------------EditUser------------------------------ -->
+      <div *ngIf="type == 'user' && editUserInfo != null">
+
+        <form class="example-form" [formGroup]="userForm" autocomplete="off">
+
+
+          <div style="height:35vh">
+
+            <div style="width:50%;margin-top: 15px;">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>First name</mat-label>
+                <input matInput type="text" formControlName="firstName" required>
+              </mat-form-field>
+            </div>
+
+            <div class="imageCard" style="height:50px;width:50%;margin-left:300px;margin-top:-80px">
+
+              <img *ngIf="imageSrc != null" src="{{'data:image/jpeg;base64,' + imageSrc}}" width="200px;" height="200px"
+                   required>
+
+              <img *ngIf="imageSrc == null" src="../assets/addImage.png" (click)="imageFile.click()" width="200px;"
+                   height="200px" required>
+              <input type="file" style="display: none" accept="image/*" (change)="uploadImage($event)" #imageFile>
+
+              <span style="margin-top: 2px;" *ngIf="imageSrc != null">
+                <i class="fa fa-upload" (click)="updateImageFile.click()" style="font-size: 16px;color: #636e7b"></i>
+                <input type="file" style="display: none" accept="image/*" (change)="updateImage($event)"
+                       #updateImageFile>
+
+                <i class="fa fa-trash" (click)="deleteImage()"
+                   style="font-size: 16px;color: #636e7b;float:right;margin-right: 50px;"></i>
+              </span>
+
+            </div>
+            <div style="width:50%;margin-top: 35px;">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>LastName</mat-label>
+                <input matInput type="text" formControlName="lastName">
+              </mat-form-field>
+            </div>
+            <div style="width:50%;margin-top: 35px;">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>UserName</mat-label>
+                <input matInput type="text" formControlName="username" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email" required>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>PhoneNumber</mat-label>
+                  <input matInput type="text" formControlName="phoneNumber" required>
+                </mat-form-field>
+              </td>
+
+            </tr>
+
+          </table>
+        </form>
+
+      </div>
+
+      <div *ngIf="type == 'role' && editRoleInfo == null">
+        new role
+      </div>
+
+      <div *ngIf="type == 'role' && editRoleInfo != null">
+        edit role
+      </div>
+
+    </div>
+
+
+    <div class="sidepanelFooter">
+      <button mat-raised-button color="primary" *ngIf="type == 'user' && editUserInfo == null"
+              [disabled]="!userForm.valid" (click)="createUser(userForm.value)">CreateUser
+      </button>
+      <button mat-raised-button color="primary" *ngIf="type == 'user' && editUserInfo != null"
+              (click)="UpdateUser(userForm.value)">UpdateUser
+      </button>
+      <button mat-raised-button color="primary" *ngIf="type == 'role' && editRoleInfo == null">CreateRole</button>
+      <button mat-raised-button color="primary" *ngIf="type == 'role' && editRoleInfo != null">UpdateRole</button>
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content style="overflow-y: auto !important;">
+
+    <div fxLayout="row wrap" fxLayoutGap="0px grid" *ngIf="type == 'user'">
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let user of users; let i = index">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image">
+              <img *ngIf="user.image != null" src="{{'data:image/jpeg;base64,' + user.image}}">
+              <span *ngIf="user.image == null" class="noImage">
+                {{user.firstName | shortName | titlecase}}
+                <span *ngIf="user.lastName != null"> {{user.lastName | shortName | titlecase}} </span>
+              </span>
+            </div>
+            <mat-card-title>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</mat-card-title>
+            <mat-card-subtitle *ngFor="let role of user.roles">{{role.name}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="user-details">
+              <div>
+                <i class="las la-user"></i>
+                <span>{{user.firstName | titlecase}} {{user.lastName | titlecase}}</span>
+              </div>
+              <div>
+                <i class="las la-envelope"></i>
+                <span>{{user.email}}</span>
+              </div>
+              <div>
+                <i class="las la-phone"></i>
+                <span>{{user.phoneNumber}}</span>
+              </div>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button (click)="sideNav.open();editUser(user)" color="primary">Edit</button>
+            <button mat-stroked-button (click)="delteUser(user,i)" color="warn" style="float:right">Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+    </div>
+
+    <div *ngIf="type == 'role'">
+      <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-grid-tile>1</mat-grid-tile>
+        <mat-grid-tile>2</mat-grid-tile>
+        <mat-grid-tile>3</mat-grid-tile>
+        <mat-grid-tile>4</mat-grid-tile>
+      </mat-grid-list>
+
+      <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let role of roles; let i = index">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{role.name}}</mat-card-title>
+            <mat-card-subtitle>{{role.description}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="user-details">
+              users1
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button (click)="sideNav.open();editUser(user)" color="primary">Edit</button>
+            <button mat-stroked-button (click)="delteUser(user,i)" color="warn" style="float:right">Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+
+    </div>
+
+
+  </mat-drawer-content>
+</mat-drawer-container>

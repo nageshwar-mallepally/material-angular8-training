@@ -1,0 +1,32 @@
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none ;
+  margin: 0;
+}
+
+.example-large-box {
+
+ height: 452px;
+}
+
+
+::ng-deep .mat-form-field-required-marker {
+  color: red
+}
+

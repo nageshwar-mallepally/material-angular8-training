@@ -1,0 +1,170 @@
+<h2 mat-dialog-title style="text-align: center;">Update Property</h2>
+
+<!-- fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px" -->
+<form [formGroup]="property" autocomplete="off">
+
+  <mat-dialog-content class="mat-typography">
+
+    <mat-tab-group>
+      <mat-tab label="Basic Details">
+
+        <mat-grid-list cols="4" rowHeight="100px">
+
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> PropertyId</mat-label>
+                <input matInput type="text" formControlName="propertyId" id="propertyId" required>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> Name</mat-label>
+                <input matInput type="text" formControlName="name" id="name" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> Units</mat-label>
+                <input matInput type="text" formControlName="units" id="units" required>
+              </mat-form-field>
+            </div>
+
+          </mat-grid-tile>
+          <!--<mat-grid-tile [colspan]="1" [rowspan]="2">
+
+            <div class="thumbnail-container">
+              <img *ngIf="imageSrc != null" [src]="imageSrc" (click)="imageFile.click()"
+                   placeholder="click here to upload imag" style="height: 180px; width:150px" required>
+              <img *ngIf="imageSrc == null" src="../../../../assets/addImage.png" (click)="imageFile.click()"
+                   placeholder="click here to upload imag" style="height: 180px; width:150px" required>
+            </div>
+            <input type="file" style="display: none" accept="image/*" (change)="onFileChange($event)" #imageFile>
+
+          </mat-grid-tile>-->
+
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> Property Type</mat-label>
+                <input matInput type="propertyType" formControlName="propertyType" id="propertyType" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> Category</mat-label>
+                <input matInput type="text" formControlName="category" id="category">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label> Direction</mat-label>
+                <input matInput type="text" formControlName="direction" id="direction">
+              </mat-form-field>
+            </div>
+
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Address Type</mat-label>
+                <input matInput type="text" formControlName="addressType" id="addressType">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput type="text" formControlName="address" id="address" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>District</mat-label>
+                <input matInput type="text" formControlName="district" id="district">
+              </mat-form-field>
+            </div>
+
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="4" [rowspan]="1">
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country" id="country" required>
+                  <mat-option *ngFor="let country of countries" (click)="changeCountry(country)" [value]="country.name">
+                    {{country.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" id="state" required>
+                  <mat-option *ngFor="let state of states" (click)="changeState(state)" [value]="state.name">
+                    {{state.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>City</mat-label>
+                <mat-select formControlName="city" id="city" required>
+                  <mat-option *ngFor="let city of cities" [value]="city">
+                    {{city}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Pincode</mat-label>
+                <input matInput type="number" formControlName="pincode" id="pincode" required>
+              </mat-form-field>
+            </div>
+
+          </mat-grid-tile>
+
+        </mat-grid-list>
+
+      </mat-tab>
+
+      <mat-tab label="Images">
+
+        <mat-grid-list cols="4" rowHeight="100px">
+          <mat-grid-tile [colspan]="1" [rowspan]="2" *ngFor="let src1 of selectedSrcFiles">
+
+            <div class="thumbnail-container">
+              <img *ngIf="src1 != null" [src]="src1" (click)="imageFile.click()"
+                   placeholder="click here to upload image" style="height: 180px; width:150px">
+            </div>
+            <input type="file" style="display: none" accept="image/*" (change)="onFileChange($event)" #imageFile>
+
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="2">
+            <div class="thumbnail-container">
+              <img *ngIf="imageSrc == null" src="../../../../assets/addImage.png" (click)="imageFile.click()"
+                   placeholder="click here to upload imag" style="height: 180px; width:150px">
+            </div>
+            <input type="file" style="display: none" accept="image/*" (change)="onFileChange($event)" #imageFile>
+
+          </mat-grid-tile>
+
+        </mat-grid-list>
+
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-dialog-content>
+</form>
+<mat-dialog-actions align="end">
+
+  <button type="button" mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  <button mat-raised-button (click)="update(property.value)"
+    color="primary">Update</button>
+
+</mat-dialog-actions>

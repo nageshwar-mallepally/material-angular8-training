@@ -1,0 +1,7 @@
+<div *ngIf="data.title == 'image'">
+  <mat-icon (click)="closeDialog()" title="close">cancel</mat-icon>
+ <div style="text-align:center">
+  <img [src]=" 'data:image/jpeg;base64,' + data.ob.picByte" style="width:250px;height: 300px;">
+  <h5 >{{data.ob.name}}</h5>
+ </div>
+</div>

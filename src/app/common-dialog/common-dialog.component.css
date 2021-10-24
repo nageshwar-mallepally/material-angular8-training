@@ -1,0 +1,12 @@
+/* img
+{
+  width:150px;
+  height:150px;
+} */
+.mat-icon{
+  float:right;
+  margin-top:-20px;
+  padding-left: 20px;
+  color: red;
+  cursor: pointer;
+}
