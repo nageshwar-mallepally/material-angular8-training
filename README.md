@@ -1,7 +1,7 @@
 # PROPERTY-TRAINING-PROJECT
 
 ## Technologies
-#### Java, Hibernate, Spring Security using JWT, Angualar 8 and Material design.
+#### Angualar 8 and Material design.
 
 ### This is for Property transactions.
 
